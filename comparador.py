@@ -13,9 +13,9 @@ from Knn_HardCore.KnnHard import KNearestNeighbors   # ajuste o nome do arquivo 
 # ========================
 # Função para medir memória
 # ========================
-def get_memory_usage_mb():
+def get_memory_usage_kb():
     process = psutil.Process(os.getpid())
-    return process.memory_info().rss / (1024 * 1024)
+    return process.memory_info().rss / 1024 
 
 # ========================
 # Comparação
@@ -25,7 +25,7 @@ def compare_knn(k_values=[1, 3, 5, 7]):
     X, y = iris.data, iris.target
 
     X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.3, random_state=42, stratify=y
+        X, y, test_size=0.2, random_state=42, stratify=y
     )
 
     for k in k_values:
@@ -33,12 +33,12 @@ def compare_knn(k_values=[1, 3, 5, 7]):
 
         # --- Hardcore ---
         hc = KNearestNeighbors(k=k)
-        mem_before = get_memory_usage_mb()
-        start = time.time()
+        mem_before_hc = get_memory_usage_kb()
+        start = time.perf_counter()
         hc.fit(X_train, y_train)
         y_pred_hc = hc.predict(X_test)
-        end = time.time()
-        mem_after = get_memory_usage_mb()
+        end = time.perf_counter()
+        mem_after_hc = get_memory_usage_kb()
 
         acc_hc = accuracy_score(y_test, y_pred_hc)
         prec_hc = precision_score(y_test, y_pred_hc, average="macro")
@@ -46,17 +46,17 @@ def compare_knn(k_values=[1, 3, 5, 7]):
 
         print("\n[Hardcore]")
         print(f"Acuracia: {acc_hc:.4f} | Precisao: {prec_hc:.4f} | Revocacao: {rec_hc:.4f}")
-        print(f"Tempo: {end-start:.6f} s | Memoria: {mem_after-mem_before:.3f} MB")
+        print(f"Tempo: {end-start:.6f} s | Memoria: {mem_after_hc-mem_before_hc:.3f} KB")
         print(classification_report(y_test, y_pred_hc, target_names=iris.target_names))
 
         # --- Sklearn ---
         sk = KNeighborsClassifier(n_neighbors=k)
-        mem_before = get_memory_usage_mb()
-        start = time.time()
+        mem_before_sk = get_memory_usage_kb()
+        start = time.perf_counter()
         sk.fit(X_train, y_train)
         y_pred_sk = sk.predict(X_test)
-        end = time.time()
-        mem_after = get_memory_usage_mb()
+        end = time.perf_counter()
+        mem_after_sk = get_memory_usage_kb()
 
         acc_sk = accuracy_score(y_test, y_pred_sk)
         prec_sk = precision_score(y_test, y_pred_sk, average="macro")
@@ -64,7 +64,7 @@ def compare_knn(k_values=[1, 3, 5, 7]):
 
         print("\n[Sklearn]")
         print(f"Acuracia: {acc_sk:.4f} | Precisao: {prec_sk:.4f} | Revocacao: {rec_sk:.4f}")
-        print(f"Tempo: {end-start:.6f} s | Memoria: {mem_after-mem_before:.3f} MB")
+        print(f"Tempo: {end-start:.6f} s | Memoria: {mem_after_sk-mem_before_sk:.3f} KB")
         print(classification_report(y_test, y_pred_sk, target_names=iris.target_names))
 
 
