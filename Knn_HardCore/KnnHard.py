@@ -16,7 +16,7 @@ def euclidean_distance(point1, point2):
 # Classe KNN do zero
 # ========================
 class KNearestNeighbors:
-    def __init__(self, k):
+    def __init__(self, k=3):
         self.k = k
     
     def fit(self, X, y):
