@@ -10,9 +10,9 @@ from sklearn.metrics import confusion_matrix, classification_report, accuracy_sc
 iris = load_iris()
 X, y = iris.data, iris.target
 
-# 2. Dividir em treino e teste (70% treino, 30% teste)
+# 2. Dividir em treino e teste (80% treino, 20% teste)
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, random_state=42
+    X, y, test_size=0.2, random_state=42
 )
 
 # 3. Valores de k
