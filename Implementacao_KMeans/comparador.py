@@ -2,8 +2,8 @@ import numpy as np
 import time
 from sklearn.datasets import load_iris
 from sklearn.metrics import silhouette_score
-from KMeans_Hard import KMeansClustering   # sua implementação hardcore
-from Kmeans_Sk import KMeans               # implementação sklearn adaptada
+from KMeans_Hardcore import KMeansClustering   # sua implementação hardcore
+from KMeans_Sk import KMeans               # implementação sklearn adaptada
 
 
 # -----------------------------
