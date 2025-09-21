@@ -8,7 +8,7 @@ from KMeans_Sk import KMeans
 
 # Função para avaliar algoritmos
 def avaliar_algoritmo(algoritmo, X, k, nome="Algoritmo"):
-    inicio = time.time()
+    inicio = time.perf_counter()
 
     # Verifica qual é o algoritmo para chamar o método correto
     if isinstance(algoritmo, KMeansClustering):
@@ -16,7 +16,7 @@ def avaliar_algoritmo(algoritmo, X, k, nome="Algoritmo"):
     else:
         labels = algoritmo.fit_predict(X)  # sklearn retorna labels com fit_predict
 
-    fim = time.time()
+    fim = time.perf_counter()
 
     # Métrica de qualidade
     score = silhouette_score(X, labels)
