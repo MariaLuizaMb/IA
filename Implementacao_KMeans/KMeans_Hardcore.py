@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
-from sklearn.metrics import silhouette_score  # para avaliação
+from sklearn.metrics import silhouette_score
 
 class KMeansClustering:
     def __init__(self, k):
@@ -15,6 +15,7 @@ class KMeansClustering:
     def initialize_centroids_plus_plus(self, X):
         np.random.seed(42)  # Para reprodutibilidade
         centroids = []
+        
         # Escolhe o primeiro centróide aleatoriamente
         centroids.append(X[np.random.randint(0, X.shape[0])])
         
@@ -59,7 +60,7 @@ class KMeansClustering:
 
 # Carregando a base de Dados Iris
 iris = load_iris()
-X = iris.data  # apenas atributos (sem target)
+X = iris.data
 
 # Experimento com k=3
 modelo3 = KMeansClustering(k=3)
@@ -80,7 +81,6 @@ print(f"Silhouette Score com k=5: {score5:.4f}\n")
 
 
 # Gráficos salvos como imagens
-
 # Plot com 3 clusters
 plt.figure(figsize=(6, 5))
 plt.scatter(X[:, 2], X[:, 3], c=labels3, cmap='viridis', s=30)

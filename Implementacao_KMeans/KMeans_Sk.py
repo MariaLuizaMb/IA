@@ -5,29 +5,22 @@ from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
 from sklearn.metrics import silhouette_score
 
-# -----------------------------
-# Carregar base Iris (sem target)
-# -----------------------------
+# Carregar base de Dados Iris
 iris = load_iris()
 X = iris.data
 
-# -----------------------------
 # KMeans com k=3 (melhor k)
-# -----------------------------
 k = 3
 kmeans = KMeans(n_clusters=k, random_state=42, n_init=10)
 labels = kmeans.fit_predict(X)
 
-# Avaliação
 score = silhouette_score(X, labels)
 print("=== Avaliacao com sklearn KMeans ===")
 print(f"Melhor numero de clusters: k={k}")
 print(f"Silhouette Score: {score:.4f}")
 print("=" * 40 + "\n")
 
-# -----------------------------
 # PCA com 1 componente
-# -----------------------------
 pca1 = PCA(n_components=1)
 X_pca1 = pca1.fit_transform(X)
 
@@ -43,9 +36,7 @@ plt.legend()
 plt.savefig("pca_1_component.png")
 plt.close()
 
-# -----------------------------
 # PCA com 2 componentes
-# -----------------------------
 pca2 = PCA(n_components=2)
 X_pca2 = pca2.fit_transform(X)
 
