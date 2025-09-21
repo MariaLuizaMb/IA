@@ -10,7 +10,7 @@ from KMeans_Sk import KMeans
 def avaliar_algoritmo(algoritmo, X, k, nome="Algoritmo"):
     inicio = time.time()
 
-    # Verifica se é sklearn ou hardcore
+    # Verifica qual é o algoritmo para chamar o método correto
     if isinstance(algoritmo, KMeansClustering):
         labels = algoritmo.fit(X)  # já retorna os labels
     else:
